@@ -24,6 +24,12 @@ public class HybridBreakeven {
     * @param args command line arguments (not used)
     */
    public static void main(String[] args) {
+
+      // Explains to the user about the purpose of the program.
+      System.out.println("This program will calculate the number of years to breakeven");
+      System.out.println("when purchasing a hybrid vehicle over conventional vehicle.");
+      System.out.println();
+
       Scanner console = new Scanner(System.in);
 
       System.out.print("What is the purchase price of the conventional vehicle? ");
@@ -54,14 +60,17 @@ public class HybridBreakeven {
       /** The number of years the user plans to keep the car. */
       double maxYears = console.nextDouble();
 
-      // Table headings.
-      System.out.println("    Cumulative Fuel and Total Cost Comparison (in dollars)    ");
-      System.out.println();
-      System.out.println("          Conventional          Hybrid         Hybrid Savings ");
-      System.out.println("Years    Fuel     Total     Fuel     Total     Fuel     Total ");
-      System.out.println("-----   ------   -------   ------   -------   ------   -------");
 
-      for (int years = YEAR_ONE; years <= maxYears; years++) {
+
+      // Table headings.
+      System.out.println();
+      System.out.println("        Cumulative Fuel and Total Cost Comparison (in dollars)        ");
+      System.out.println();
+      System.out.println("          Conventional             Hybrid            Hybrid Savings   ");
+      System.out.println("Years    Fuel      Total       Fuel      Total       Fuel      Total  ");
+      System.out.println("-----  --------  ---------   --------  ---------   --------  ---------");
+
+      for (int years = YEAR_ONE; years <= Math.ceil(maxYears); years++) {
 
          /** The fuel cost of the conventional vehicle. */
          double carFuelCost = calculateFuelCost(years, miles, carMPG, gasPrice);
@@ -83,12 +92,12 @@ public class HybridBreakeven {
 
          //Prints the outputs of the calculations.
          System.out.printf("%3d", years);
-         System.out.printf("%11.2f", carFuelCost);
-         System.out.printf("%10.2f", carTotal);
-         System.out.printf("%9.2f", hybridFuelCost);
-         System.out.printf("%10.2f", hybridTotal);
-         System.out.printf("%9.2f", savingsFuel);
-         System.out.printf("%10.2f", savingsTotal);
+         System.out.printf("%12.2f", carFuelCost);
+         System.out.printf("%11.2f", carTotal);
+         System.out.printf("%11.2f", hybridFuelCost);
+         System.out.printf("%11.2f", hybridTotal);
+         System.out.printf("%11.2f", savingsFuel);
+         System.out.printf("%11.2f", savingsTotal);
          System.out.println();
       }
 
@@ -114,6 +123,7 @@ public class HybridBreakeven {
     * of years of ownership, the annual milege driven, the fuel economy,
     * and the average price of a gallon of gasoline.
     * @param years the number of years of ownership
+    * @param miles the number of miles driven per year
     * @param mpg the fuel economy
     * @param gasPrice the average price of a gallon of gasoline
     * @return fuel the cumulative fuel cost in dollars
