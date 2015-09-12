@@ -1,11 +1,11 @@
 import java.util.*;
 
 /**
- * The HybridBrakeven class will consider the cost of gas,
+ * The HybridBrakeven class will consider the cost of gasoline,
  * the additional expenses of purchasing a hyrbid vehicle,
  * the number of miles driven per year, and the fuel economy of
  * the conventional and hybrid vehicles to calculate the number
- * of years to breakeven in purchasing a hybrid vehicle over
+ * of years to breakeven when purchasing a hybrid vehicle over
  * a conventional vehicle.
  * @author Horace Yim
  */
@@ -18,8 +18,8 @@ public class HybridBreakeven {
     * Calculates the cumulative fuel cost and the total cost of conventional
     * and hybrid vehicles in dollars.
     * The for loop will call the calculateFuelCost method two times to
-    * produce the cumulative fuel cost and calculate the total cost total cost of conventional
-    * and hybrid vehicles in dollars.
+    * produce the cumulative fuel and total costs of the conventional
+    * and hybrid vehicles over the duration of car ownership.
     * Prints the results in a table.
     * @param args command line arguments (not used)
     */
@@ -27,7 +27,7 @@ public class HybridBreakeven {
 
       // Explains to the user about the purpose of the program.
       System.out.println("This program will calculate the number of years to breakeven");
-      System.out.println("when purchasing a hybrid vehicle over conventional vehicle.");
+      System.out.println("when purchasing a hybrid vehicle over a conventional vehicle.");
       System.out.println();
 
       Scanner console = new Scanner(System.in);
@@ -49,7 +49,7 @@ public class HybridBreakeven {
       double hybridMPG = console.nextDouble();
 
       System.out.print("The average cost of a gallon of the gasoline? ");
-      /** the average cost of a gallon of gasoline. */
+      /** The average cost of a gallon of gasoline. */
       double gasPrice = console.nextDouble();
 
       System.out.print("How many miles do you drive per year? ");
@@ -84,13 +84,13 @@ public class HybridBreakeven {
          /** The total cost of the conventional vehicle. */
          double hybridTotal = hybridFuelCost + hybridPrice;
 
-         /** The savings in fuel cost by purchasing the hybrid vehicle. */
+         /** The savings in cumulative fuel costs by purchasing the hybrid vehicle. */
          double savingsFuel = carFuelCost - hybridFuelCost;
 
          /** The savings in the total cost by purchasing the hybrid vehicle. */
          double savingsTotal = carTotal - hybridTotal;
 
-         //Prints the outputs of the calculations.
+         // Prints the outputs of the calculations.
          System.out.printf("%3d", years);
          System.out.printf("%12.2f", carFuelCost);
          System.out.printf("%11.2f", carTotal);
@@ -101,7 +101,7 @@ public class HybridBreakeven {
          System.out.println();
       }
 
-      /** Calculates the price premium for the hybrid over the conventional vehicle. */
+      /** The price premium for the hybrid over the conventional vehicle. */
       double premium = hybridPrice - carPrice;
 
       /** Annual fuel cost of the conventional vehicle. */
@@ -110,12 +110,19 @@ public class HybridBreakeven {
       /** Annual fuel cost of the hybrid vehicle. */
       double annualHybridFuel = calculateFuelCost(YEAR_ONE, miles, hybridMPG, gasPrice);
 
-      /** Calculates the number of years required to breakeven. */
+      /** The number of years required to breakeven. */
       double breakeven = premium / (annualCarFuel - annualHybridFuel);
 
-      // Prints how many years for the user to breakeven from the savings on fuel.
-      System.out.println();
-      System.out.println("It would take " + Math.max(0, breakeven) + " years to breakeven.");
+      /*
+      /* Prints the number of years for the user to breakeven from the savings on fuel.
+      /* The If else statements will determine when to use "year" or "years".
+       */
+      if (breakeven > YEAR_ONE) {
+         System.out.printf("\nIt would take %.2f years to breakeven.\n", Math.max(0, breakeven));
+
+      } else {
+         System.out.printf("\nIt would take %.2f year to breakeven.\n", Math.max(0, breakeven));
+      }
    }
 
    /**
