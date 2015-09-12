@@ -1,0 +1,129 @@
+import java.util.*;
+
+/**
+ * The HybridBrakeven class will consider the cost of gas,
+ * the additional expenses of purchasing a hyrbid vehicle,
+ * the number of miles driven per year, and the fuel economy of
+ * the conventional and hybrid vehicles to calculate the number
+ * of years to breakeven in purchasing a hybrid vehicle over
+ * a conventional vehicle.
+ * @author Horace Yim
+ */
+public class HybridBreakeven {
+
+   /** Year one of ownership. */
+   public static final int YEAR_ONE = 1;
+
+   /**
+    * Calculates the cumulative fuel cost and the total cost of conventional
+    * and hybrid vehicles in dollars.
+    * The for loop will call the calculateFuelCost method two times to
+    * produce the cumulative fuel cost and calculate the total cost total cost of conventional
+    * and hybrid vehicles in dollars.
+    * Prints the results in a table.
+    * @param args command line arguments (not used)
+    */
+   public static void main(String[] args) {
+      Scanner console = new Scanner(System.in);
+
+      System.out.print("What is the purchase price of the conventional vehicle? ");
+      /** The purchase price of the conventional vehicle. */
+      double carPrice = console.nextDouble();
+
+      System.out.print("What is the purchase price of the hybrid vehicle? ");
+      /** The purchase price of the hybrid vehicle. */
+      double hybridPrice = console.nextDouble();
+
+      System.out.print("What is the fuel economy of the conventional vehicle in MPG? ");
+      /** The fuel economy of the conventional vehicle. */
+      double carMPG = console.nextDouble();
+
+      System.out.print("What is the fuel economy of the hybrid vehicle in MPG? ");
+      /** The fuel economy of the hybrid vehicle. */
+      double hybridMPG = console.nextDouble();
+
+      System.out.print("The average cost of a gallon of the gasoline? ");
+      /** the average cost of a gallon of gasoline. */
+      double gasPrice = console.nextDouble();
+
+      System.out.print("How many miles do you drive per year? ");
+      /** The number of miles driven by the user annually. */
+      double miles = console.nextDouble();
+
+      System.out.print("How many years do you plan to keep the car? ");
+      /** The number of years the user plans to keep the car. */
+      double maxYears = console.nextDouble();
+
+      // Table headings.
+      System.out.println("    Cumulative Fuel and Total Cost Comparison (in dollars)    ");
+      System.out.println();
+      System.out.println("          Conventional          Hybrid         Hybrid Savings ");
+      System.out.println("Years    Fuel     Total     Fuel     Total     Fuel     Total ");
+      System.out.println("-----   ------   -------   ------   -------   ------   -------");
+
+      for (int years = YEAR_ONE; years <= maxYears; years++) {
+
+         /** The fuel cost of the conventional vehicle. */
+         double carFuelCost = calculateFuelCost(years, miles, carMPG, gasPrice);
+
+         /** The total cost of the conventional vehicle. */
+         double carTotal = carFuelCost + carPrice;
+
+         /** The fuel cost of the conventional vehicle. */
+         double hybridFuelCost = calculateFuelCost(years, miles, hybridMPG, gasPrice);
+
+         /** The total cost of the conventional vehicle. */
+         double hybridTotal = hybridFuelCost + hybridPrice;
+
+         /** The savings in fuel cost by purchasing the hybrid vehicle. */
+         double savingsFuel = carFuelCost - hybridFuelCost;
+
+         /** The savings in the total cost by purchasing the hybrid vehicle. */
+         double savingsTotal = carTotal - hybridTotal;
+
+         //Prints the outputs of the calculations.
+         System.out.printf("%3d", years);
+         System.out.printf("%11.2f", carFuelCost);
+         System.out.printf("%10.2f", carTotal);
+         System.out.printf("%9.2f", hybridFuelCost);
+         System.out.printf("%10.2f", hybridTotal);
+         System.out.printf("%9.2f", savingsFuel);
+         System.out.printf("%10.2f", savingsTotal);
+         System.out.println();
+      }
+
+      /** Calculates the price premium for the hybrid over the conventional vehicle. */
+      double premium = hybridPrice - carPrice;
+
+      /** Annual fuel cost of the conventional vehicle. */
+      double annualCarFuel = calculateFuelCost(YEAR_ONE, miles, carMPG, gasPrice);
+
+      /** Annual fuel cost of the hybrid vehicle. */
+      double annualHybridFuel = calculateFuelCost(YEAR_ONE, miles, hybridMPG, gasPrice);
+
+      /** Calculates the number of years required to breakeven. */
+      double breakeven = premium / (annualCarFuel - annualHybridFuel);
+
+      // Prints how many years for the user to breakeven from the savings on fuel.
+      System.out.println();
+      System.out.println("It would take " + Math.max(0, breakeven) + " years to breakeven.");
+   }
+
+   /**
+    * Calculates the cumulative fuel cost in dollars using the number
+    * of years of ownership, the annual milege driven, the fuel economy,
+    * and the average price of a gallon of gasoline.
+    * @param years the number of years of ownership
+    * @param mpg the fuel economy
+    * @param gasPrice the average price of a gallon of gasoline
+    * @return fuel the cumulative fuel cost in dollars
+    */
+   public static double calculateFuelCost(int years, double miles, double mpg, double gasPrice) {
+
+      /** Calculates the fuel cost.*/
+      double fuel = years * (miles / mpg) * gasPrice;
+
+      // Returns the fuel cost to the main method and for loop.
+      return fuel;
+   }
+}
